@@ -27,10 +27,6 @@ bin/magento setup:upgrade
 
 The configuration for this module is available in 'Stores > Configuration > Services > OpenAI API'.
 
-## Documentation
-
-The documentation is available [here](https://opengento.fr/magento2-openai-connector/).
-
 ## Support
 
 Raise a new [request](https://github.com/opengento/magento2-openai-connector/issues) to the issue tracker.
