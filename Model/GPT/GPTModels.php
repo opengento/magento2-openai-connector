@@ -3,6 +3,7 @@
 namespace Opengento\OpenAIConnector\Model\GPT;
 
 use Exception;
+use Magento\Framework\Message\Manager as MessageManager;
 use OpenAI\Client as OpenAIClient;
 use Opengento\OpenAIConnector\Api\ConnectionInterface as GPTConnection;
 use Opengento\OpenAIConnector\Api\GPTModelsInterface;
@@ -11,14 +12,6 @@ use Opengento\OpenAIConnector\Service\ConfigurationProvider;
 class GPTModels implements GPTModelsInterface
 {
     /**
-     * @var ConfigurationProvider
-     */
-    protected ConfigurationProvider $configurationProvider;
-    /**
-     * @var Connection
-     */
-    protected GPTConnection $connection;
-    /**
      * @var OpenAIClient|null
      */
     protected ?OpenAIClient $openAIClient = null;
@@ -26,13 +19,13 @@ class GPTModels implements GPTModelsInterface
     /**
      * @param ConfigurationProvider $configurationProvider
      * @param Connection $connection
+     * @param MessageManager $messageManager
      */
     public function __construct(
-        ConfigurationProvider $configurationProvider,
-        GPTConnection $connection
+        protected ConfigurationProvider $configurationProvider,
+        protected GPTConnection $connection,
+        protected MessageManager $messageManager
     ) {
-        $this->configurationProvider = $configurationProvider;
-        $this->connection = $connection;
     }
 
     /**
@@ -41,12 +34,18 @@ class GPTModels implements GPTModelsInterface
      */
     public function getGPTModels(): array
     {
-        if (empty($this->openAIClient)) {
-            $this->openAIClient = $this->connection->initClient();
+        try {
+            if (empty($this->openAIClient)) {
+                $this->openAIClient = $this->connection->initClient();
+            }
+
+            $models = $this->openAIClient->models()->list()->toArray();
+
+            return $models['data'];
+        } catch (\Exception $e) {
+            $this->messageManager->addErrorMessage($e->getMessage());
+
+            return [];
         }
-
-        $models = $this->openAIClient->models()->list()->toArray();
-
-        return $models['data'];
     }
 }
