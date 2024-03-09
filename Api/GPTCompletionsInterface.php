@@ -2,20 +2,23 @@
 
 namespace Opengento\OpenAIConnector\Api;
 
-use \Exception;
+use Opengento\OpenAIConnector\Model\Exception\OpenAICompletionException;
 
 interface GPTCompletionsInterface
 {
-    public const DEFAULT_TEMPERATURE = 1;
+    public final const DEFAULT_CONTEXT = '';
+    public final const DEFAULT_TEMPERATURE = 1;
 
     /**
      * @param string $prompt
+     * @param string $assistantContext
+     * @param float $temperature
      * @return string
-     * @throws Exception
+     * @throws OpenAICompletionException
      */
     public function getGPTCompletions(
         string $prompt,
-        string $assistantContext = '',
-        float  $temperature = 1,
+        string $assistantContext = self::DEFAULT_CONTEXT,
+        float  $temperature = self::DEFAULT_TEMPERATURE,
     ): string;
 }
