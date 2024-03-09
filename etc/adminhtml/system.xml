@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="openai" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>OpenAI API</label>
+            <class>separator-top</class>
+            <tab>service</tab>
+            <resource>Opengento_OpenAIConnector::opengento_open_ai_connector</resource>
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="enable" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Enable module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="org_id" translate="label" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Open AI Organization ID</label>
+                    <comment>Get you organization ID here: https://platform.openai.com/account/organization</comment>
+                </field>
+                <field id="api_key" translate="label" type="password" sortOrder="30" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Open AI Api Key</label>
+                    <comment>Get you api key here: https://platform.openai.com/api-keys</comment>
+                </field>
+                <field id="model" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>OpenAI GPT model language</label>
+                    <source_model>Opengento\OpenAIConnector\Model\Config\GPT\Models</source_model>
+                    <comment>Insert api key and organization ID and save to see options. Refer to the documentation to
+                        understand which model to select: https://platform.openai.com/docs/models/overview
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Opengento\OpenAIConnector\Api\GPTModelsInterface"
+                type="Opengento\OpenAIConnector\Model\GPT\GPTModels"/>
+    <preference for="Opengento\OpenAIConnector\Api\ConnectionInterface"
+                type="Opengento\OpenAIConnector\Model\GPT\Connection"/>
+    <preference for="Opengento\OpenAIConnector\Api\GPTCompletionsInterface"
+                type="Opengento\OpenAIConnector\Model\GPT\GPTCompletions"/>
+</config>
