@@ -40,8 +40,11 @@ class GPTCompletions implements GPTCompletionsInterface
      * @return string
      * @throws Exception
      */
-    public function getGPTCompletions(string $prompt): string
-    {
+    public function getGPTCompletions(
+        string $prompt,
+        string $assistantContext = '',
+        float  $temperature = 1,
+    ): string {
         if (empty($this->openAIClient)) {
             $this->openAIClient = $this->connection->initClient();
         }
@@ -49,7 +52,11 @@ class GPTCompletions implements GPTCompletionsInterface
         try {
             $result = $this->openAIClient->completions()->create([
                 'model' => $this->configurationProvider->getGPTModel(),
-                'prompt' => $prompt
+                'messages' => [
+                    ['role' => 'system', 'content' => $assistantContext],
+                    ['role' => 'user', 'content' => $prompt],
+                ],
+                'temperature' => $temperature ?? $this->configurationProvider->getTemperature()
             ]);
 
             return trim($result['choices'][0]['text']);
@@ -57,8 +64,10 @@ class GPTCompletions implements GPTCompletionsInterface
             $result = $this->openAIClient->chat()->create([
                 'model' => $this->configurationProvider->getGPTModel(),
                 'messages' => [
+                    ['role' => 'system', 'content' => $assistantContext],
                     ['role' => 'user', 'content' => $prompt],
                 ],
+                'temperature' => $temperature ?? $this->configurationProvider->getTemperature()
             ])->toArray();
 
             return trim($result['choices'][0]['message']['content']);

@@ -7,4 +7,6 @@
                 type="Opengento\OpenAIConnector\Model\GPT\Connection"/>
     <preference for="Opengento\OpenAIConnector\Api\GPTCompletionsInterface"
                 type="Opengento\OpenAIConnector\Model\GPT\GPTCompletions"/>
+    <preference for="Opengento\OpenAIConnector\Api\Service\ConfigurationProviderInterface"
+                type="Opengento\OpenAIConnector\Service\ConfigurationProvider"/>
 </config>

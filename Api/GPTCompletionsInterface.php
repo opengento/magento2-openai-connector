@@ -11,5 +11,9 @@ interface GPTCompletionsInterface
      * @return string
      * @throws Exception
      */
-    public function getGPTCompletions(string $prompt): string;
+    public function getGPTCompletions(
+        string $prompt,
+        string $assistantContext = '',
+        float  $temperature = 1,
+    ): string;
 }

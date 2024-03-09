@@ -31,6 +31,15 @@
                         understand which model to select: https://platform.openai.com/docs/models/overview
                     </comment>
                 </field>
+                <field id="assistant_context" translate="label" type="text" sortOrder="50" showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0">
+                    <label>Assistant Context Prompt</label>
+                </field>
+                <field id="temperature" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="0"
+                       showInStore="0">
+                    <label>Temperature</label>
+                </field>
             </group>
         </section>
     </system>
