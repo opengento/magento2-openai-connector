@@ -6,6 +6,8 @@ use \Exception;
 
 interface GPTCompletionsInterface
 {
+    public const DEFAULT_TEMPERATURE = 1;
+
     /**
      * @param string $prompt
      * @return string

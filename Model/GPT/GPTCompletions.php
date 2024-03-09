@@ -43,11 +43,14 @@ class GPTCompletions implements GPTCompletionsInterface
     public function getGPTCompletions(
         string $prompt,
         string $assistantContext = '',
-        float  $temperature = 1,
+        float  $temperature = self::DEFAULT_TEMPERATURE,
     ): string {
         if (empty($this->openAIClient)) {
             $this->openAIClient = $this->connection->initClient();
         }
+
+        $assistantContext = $assistantContext ?: $this->configurationProvider->getAssistantContext();
+        $temperature = $temperature === self::DEFAULT_TEMPERATURE ? $this->configurationProvider->getTemperature() : $temperature;
 
         try {
             $result = $this->openAIClient->completions()->create([
@@ -56,7 +59,7 @@ class GPTCompletions implements GPTCompletionsInterface
                     ['role' => 'system', 'content' => $assistantContext],
                     ['role' => 'user', 'content' => $prompt],
                 ],
-                'temperature' => $temperature ?? $this->configurationProvider->getTemperature()
+                'temperature' => $temperature
             ]);
 
             return trim($result['choices'][0]['text']);
@@ -67,7 +70,7 @@ class GPTCompletions implements GPTCompletionsInterface
                     ['role' => 'system', 'content' => $assistantContext],
                     ['role' => 'user', 'content' => $prompt],
                 ],
-                'temperature' => $temperature ?? $this->configurationProvider->getTemperature()
+                'temperature' => $temperature
             ])->toArray();
 
             return trim($result['choices'][0]['message']['content']);
