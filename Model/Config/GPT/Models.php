@@ -2,19 +2,19 @@
 
 namespace Opengento\OpenAIConnector\Model\Config\GPT;
 
-use Magento\Framework\Data\OptionSourceInterface;
-use Opengento\OpenAIConnector\Helper\ModuleConfig;
-use Opengento\OpenAIConnector\Api\GPTModelsInterface;
 use Exception;
+use Magento\Framework\Data\OptionSourceInterface;
+use Opengento\OpenAIConnector\Api\GPTModelsInterface;
+use Opengento\OpenAIConnector\Service\ConfigurationProvider;
 
 class Models implements OptionSourceInterface
 {
     /**
-     * @param ModuleConfig $moduleConfig
+     * @param ConfigurationProvider $configurationProvider
      * @param GPTModelsInterface $GPTModels
      */
     public function __construct(
-        protected ModuleConfig       $moduleConfig,
+        protected ConfigurationProvider       $configurationProvider,
         protected GPTModelsInterface $GPTModels
     ) {
     }
@@ -25,7 +25,7 @@ class Models implements OptionSourceInterface
      */
     public function toOptionArray(): array
     {
-        if (empty($this->moduleConfig->getApiKey()) || empty($this->moduleConfig->getOrgId())) {
+        if (empty($this->configurationProvider->getApiKey()) || empty($this->configurationProvider->getOrgId())) {
             return [];
         }
 
