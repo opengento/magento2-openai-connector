@@ -6,14 +6,10 @@ use Opengento\OpenAIConnector\Model\Exception\OpenAICompletionException;
 
 interface GPTCompletionsInterface
 {
-    public final const DEFAULT_CONTEXT = '';
-    public final const DEFAULT_TEMPERATURE = 1;
+    public final const DEFAULT_CONTEXT     = '';
+    public final const DEFAULT_TEMPERATURE = 1.0;
 
     /**
-     * @param string $prompt
-     * @param string $assistantContext
-     * @param float $temperature
-     * @return string
      * @throws OpenAICompletionException
      */
     public function getGPTCompletions(

@@ -53,12 +53,6 @@ class GPTCompletions implements GPTCompletionsInterface
         }
     }
 
-    /**
-     * @param string $prompt
-     * @param string $assistantContext
-     * @param float $temperature
-     * @return array
-     */
     protected function getOpenAIParams(
         string $prompt,
         string $assistantContext,
@@ -76,10 +70,6 @@ class GPTCompletions implements GPTCompletionsInterface
         ];
     }
 
-    /**
-     * @param string $context
-     * @return string
-     */
     protected function resolveContextValue(string $context): string
     {
         if ($context === self::DEFAULT_CONTEXT) {
@@ -89,10 +79,6 @@ class GPTCompletions implements GPTCompletionsInterface
         return $context;
     }
 
-    /**
-     * @param float $temperature
-     * @return float
-     */
     protected function resolveTemperatureValue(float $temperature): float
     {
         if ($temperature === self::DEFAULT_TEMPERATURE) {
