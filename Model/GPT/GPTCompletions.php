@@ -2,18 +2,18 @@
 
 namespace Opengento\OpenAIConnector\Model\GPT;
 
-use Opengento\OpenAIConnector\Api\GPTCompletionsInterface;
-use Opengento\OpenAIConnector\Helper\ModuleConfig;
-use Opengento\OpenAIConnector\Api\ConnectionInterface as GPTConnection;
-use OpenAI\Client as OpenAIClient;
 use Exception;
+use OpenAI\Client as OpenAIClient;
+use Opengento\OpenAIConnector\Api\ConnectionInterface as GPTConnection;
+use Opengento\OpenAIConnector\Api\GPTCompletionsInterface;
+use Opengento\OpenAIConnector\Service\ConfigurationProvider;
 
 class GPTCompletions implements GPTCompletionsInterface
 {
     /**
-     * @var ModuleConfig
+     * @var ConfigurationProvider
      */
-    protected ModuleConfig $moduleConfig;
+    protected ConfigurationProvider $configurationProvider;
     /**
      * @var GPTConnection
      */
@@ -24,14 +24,14 @@ class GPTCompletions implements GPTCompletionsInterface
     protected ?OpenAIClient $openAIClient = null;
 
     /**
-     * @param ModuleConfig $moduleConfig
+     * @param ConfigurationProvider $configurationProvider
      * @param GPTConnection $connection
      */
     public function __construct(
-        ModuleConfig $moduleConfig,
+        ConfigurationProvider $configurationProvider,
         GPTConnection $connection
     ) {
-        $this->moduleConfig = $moduleConfig;
+        $this->configurationProvider = $configurationProvider;
         $this->connection = $connection;
     }
 
@@ -48,18 +48,17 @@ class GPTCompletions implements GPTCompletionsInterface
 
         try {
             $result = $this->openAIClient->completions()->create([
-                'model' => $this->moduleConfig->getGPTModel(),
+                'model' => $this->configurationProvider->getGPTModel(),
                 'prompt' => $prompt
             ]);
 
             return trim($result['choices'][0]['text']);
         } catch (Exception $e) {
             $result = $this->openAIClient->chat()->create([
-                'model' => $this->moduleConfig->getGPTModel(),
+                'model' => $this->configurationProvider->getGPTModel(),
                 'messages' => [
                     ['role' => 'user', 'content' => $prompt],
                 ],
-
             ])->toArray();
 
             return trim($result['choices'][0]['message']['content']);

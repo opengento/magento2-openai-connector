@@ -1,17 +1,16 @@
 <?php
 
-namespace Opengento\OpenAIConnector\Helper;
+namespace Opengento\OpenAIConnector\Service;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
 
-class ModuleConfig extends AbstractHelper
+class ConfigurationProvider extends AbstractHelper
 {
-    protected final const CORE_PATH = 'openai/general/';
-    public final const MODULE_ENABLE = self::CORE_PATH . 'enable';
-    public final const API_KEY = self::CORE_PATH . 'api_key';
-    public final const ORG_ID = self::CORE_PATH . 'org_id';
-    public final const MODEL = self::CORE_PATH . 'model';
+    protected final const MODULE_ENABLE = 'openai/general/enable';
+    protected final const API_KEY = 'openai/general/api_key';
+    protected final const ORG_ID = 'openai/general/org_id';
+    protected final const MODEL = 'openai/general/model';
 
     /**
      * @return bool

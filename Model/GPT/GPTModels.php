@@ -2,18 +2,18 @@
 
 namespace Opengento\OpenAIConnector\Model\GPT;
 
-use Opengento\OpenAIConnector\Api\GPTModelsInterface;
-use Opengento\OpenAIConnector\Helper\ModuleConfig;
-use Opengento\OpenAIConnector\Api\ConnectionInterface as GPTConnection;
-use OpenAI\Client as OpenAIClient;
 use Exception;
+use OpenAI\Client as OpenAIClient;
+use Opengento\OpenAIConnector\Api\ConnectionInterface as GPTConnection;
+use Opengento\OpenAIConnector\Api\GPTModelsInterface;
+use Opengento\OpenAIConnector\Service\ConfigurationProvider;
 
 class GPTModels implements GPTModelsInterface
 {
     /**
-     * @var ModuleConfig
+     * @var ConfigurationProvider
      */
-    protected ModuleConfig $moduleConfig;
+    protected ConfigurationProvider $configurationProvider;
     /**
      * @var Connection
      */
@@ -24,14 +24,14 @@ class GPTModels implements GPTModelsInterface
     protected ?OpenAIClient $openAIClient = null;
 
     /**
-     * @param ModuleConfig $moduleConfig
+     * @param ConfigurationProvider $configurationProvider
      * @param Connection $connection
      */
     public function __construct(
-        ModuleConfig $moduleConfig,
+        ConfigurationProvider $configurationProvider,
         GPTConnection $connection
     ) {
-        $this->moduleConfig = $moduleConfig;
+        $this->configurationProvider = $configurationProvider;
         $this->connection = $connection;
     }
 

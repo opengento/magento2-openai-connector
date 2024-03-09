@@ -2,10 +2,10 @@
 
 namespace Opengento\OpenAIConnector\Model\GPT;
 
-use Opengento\OpenAIConnector\Api\ConnectionInterface;
 use OpenAI;
-use Opengento\OpenAIConnector\Helper\ModuleConfig;
 use OpenAI\Client as OpenAIClient;
+use Opengento\OpenAIConnector\Api\ConnectionInterface;
+use Opengento\OpenAIConnector\Service\ConfigurationProvider;
 
 class Connection implements ConnectionInterface
 {
@@ -14,20 +14,20 @@ class Connection implements ConnectionInterface
      */
     protected OpenAI $openAI;
     /**
-     * @var ModuleConfig
+     * @var ConfigurationProvider
      */
-    protected ModuleConfig $moduleConfig;
+    protected ConfigurationProvider $configurationProvider;
 
     /**
      * @param OpenAI $openAI
-     * @param ModuleConfig $moduleConfig
+     * @param ConfigurationProvider $configurationProvider
      */
     public function __construct(
         OpenAI $openAI,
-        ModuleConfig $moduleConfig
+        ConfigurationProvider $configurationProvider
     ) {
         $this->openAI = $openAI;
-        $this->moduleConfig = $moduleConfig;
+        $this->configurationProvider = $configurationProvider;
     }
 
     /**
@@ -35,8 +35,8 @@ class Connection implements ConnectionInterface
      */
     public function initClient(): OpenAIClient
     {
-        $apiKey = $this->moduleConfig->getApiKey();
-        $organization = $this->moduleConfig->getOrgId();
+        $apiKey = $this->configurationProvider->getApiKey();
+        $organization = $this->configurationProvider->getOrgId();
 
         return $this->openAI::client($apiKey, $organization);
     }
