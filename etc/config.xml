@@ -4,7 +4,7 @@
     <default>
         <openai>
             <general>
-                <assistant_context></assistant_context>
+                <assistant_context>Tu es un expert Magento 2 et tu connais la structure de la base de données Magento parfaitement.</assistant_context>
                 <temperature>1</temperature>
             </general>
         </openai>
