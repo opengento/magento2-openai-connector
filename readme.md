@@ -8,7 +8,7 @@ Magento 2 Open Source or Commerce edition is required.
 Run the following composer command:
 
 ```
-composer require opengento/module-gdpr
+composer require opengento/magento2-openai-connector
 ```
 
 ### Setup the module
